@@ -1,0 +1,6 @@
+{
+  "name": "HireAI",
+  "description": "Analyze your resume. Match your dream job. AI-Powered Resume Analyzer & Job Matcher with ATS scoring, job fit analysis, and interview prep.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

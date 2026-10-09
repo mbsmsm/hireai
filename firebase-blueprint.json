@@ -1,0 +1,265 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Basic user account profile stored upon registration",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the user",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address",
+          "maxLength": 150
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of user creation"
+        }
+      },
+      "required": ["name", "email", "createdAt"]
+    },
+    "ResumeDocument": {
+      "title": "Resume Document",
+      "description": "Metadata for an uploaded resume file",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "User ID of the resume owner",
+          "maxLength": 128
+        },
+        "fileName": {
+          "type": "string",
+          "description": "Uploaded resume file name",
+          "maxLength": 255
+        },
+        "fileUrl": {
+          "type": "string",
+          "description": "Cloudinary secure_url or file reference path",
+          "maxLength": 2048
+        },
+        "publicId": {
+          "type": "string",
+          "description": "Cloudinary public ID",
+          "maxLength": 512
+        },
+        "fileSize": {
+          "type": "number",
+          "description": "File size in bytes"
+        },
+        "fileType": {
+          "type": "string",
+          "description": "MIME type or file extension (pdf/docx/txt)",
+          "maxLength": 50
+        },
+        "extractedText": {
+          "type": "string",
+          "description": "Extracted text content from resume for AI processing",
+          "maxLength": 100000
+        },
+        "analysisStatus": {
+          "type": "string",
+          "description": "Current analysis status (pending, completed, failed)",
+          "enum": ["pending", "completed", "failed"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["userId", "fileName", "fileType", "createdAt"]
+    },
+    "ResumeAnalysis": {
+      "title": "Resume Analysis",
+      "description": "Detailed AI evaluation of a resume",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "User ID of the resume owner",
+          "maxLength": 128
+        },
+        "resumeId": {
+          "type": "string",
+          "description": "Associated resume document ID",
+          "maxLength": 128
+        },
+        "overallScore": {
+          "type": "number",
+          "description": "Overall resume score from 0 to 100"
+        },
+        "atsScore": {
+          "type": "number",
+          "description": "ATS score from 0 to 100"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Professional candidate summary"
+        },
+        "technicalSkills": {
+          "type": "array",
+          "description": "Identified technical skills"
+        },
+        "softSkills": {
+          "type": "array",
+          "description": "Identified soft skills"
+        },
+        "strengths": {
+          "type": "array",
+          "description": "Identified resume strengths"
+        },
+        "weaknesses": {
+          "type": "array",
+          "description": "Identified resume weaknesses"
+        },
+        "improvements": {
+          "type": "array",
+          "description": "Actionable suggestions for improvement"
+        },
+        "recommendedSkills": {
+          "type": "array",
+          "description": "Recommended skills to learn"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp of analysis"
+        }
+      },
+      "required": ["userId", "resumeId", "overallScore", "atsScore", "createdAt"]
+    },
+    "JobAnalysis": {
+      "title": "Job Analysis",
+      "description": "Match analysis between a resume and a target job description",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "User ID",
+          "maxLength": 128
+        },
+        "resumeId": {
+          "type": "string",
+          "description": "Associated resume ID",
+          "maxLength": 128
+        },
+        "jobTitle": {
+          "type": "string",
+          "description": "Target job title",
+          "maxLength": 200
+        },
+        "jobDescription": {
+          "type": "string",
+          "description": "Target job description text",
+          "maxLength": 20000
+        },
+        "matchScore": {
+          "type": "number",
+          "description": "Calculated match percentage (0-100)"
+        },
+        "matchingSkills": {
+          "type": "array",
+          "description": "Skills matching the job posting"
+        },
+        "missingSkills": {
+          "type": "array",
+          "description": "Skills missing from candidate profile"
+        },
+        "relevantExperience": {
+          "type": "array",
+          "description": "Relevant candidate experiences"
+        },
+        "jobRequirements": {
+          "type": "array",
+          "description": "Key requirements extracted from the JD"
+        },
+        "recommendations": {
+          "type": "array",
+          "description": "Strategic recommendations"
+        },
+        "resumeImprovements": {
+          "type": "array",
+          "description": "Suggested resume tweaks for this specific role"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["userId", "resumeId", "matchScore", "createdAt"]
+    },
+    "InterviewSession": {
+      "title": "Interview Session",
+      "description": "AI generated interview questions and prep guide",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "User ID",
+          "maxLength": 128
+        },
+        "resumeId": {
+          "type": "string",
+          "description": "Associated resume ID",
+          "maxLength": 128
+        },
+        "jobTitle": {
+          "type": "string",
+          "description": "Target job title",
+          "maxLength": 200
+        },
+        "jobDescription": {
+          "type": "string",
+          "description": "Job description used for generation",
+          "maxLength": 20000
+        },
+        "technicalQuestions": {
+          "type": "array",
+          "description": "Technical interview questions with rationale and tips"
+        },
+        "projectQuestions": {
+          "type": "array",
+          "description": "Project-based deep dive questions"
+        },
+        "hrQuestions": {
+          "type": "array",
+          "description": "HR & culture fit questions"
+        },
+        "behavioralQuestions": {
+          "type": "array",
+          "description": "Behavioral STAR-method questions"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["userId", "resumeId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document keyed by Firebase Auth UID"
+    },
+    "/resumes/{resumeId}": {
+      "schema": "ResumeDocument",
+      "description": "Resume metadata and extraction text owned by userId"
+    },
+    "/resumeAnalyses/{analysisId}": {
+      "schema": "ResumeAnalysis",
+      "description": "Comprehensive resume evaluation report owned by userId"
+    },
+    "/jobAnalyses/{jobAnalysisId}": {
+      "schema": "JobAnalysis",
+      "description": "Job description matching report owned by userId"
+    },
+    "/interviewSessions/{sessionId}": {
+      "schema": "InterviewSession",
+      "description": "AI interview preparation session owned by userId"
+    }
+  }
+}
